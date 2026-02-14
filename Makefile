@@ -12,10 +12,10 @@ $(BUILD)/vis: $(OBJECTS) | $(BUILD)
 	gcc $(CFLAGS) $(OBJECTS) -o $(BUILD)/vis -lm `sdl2-config --cflags --libs`
 	chmod +x $(BUILD)/vis
 
-$(BUILD)/%.o: %.c | $(BUILD)
-	gcc $(CFLAGS) -c $< -o $@
 # 	$< -> input file name
 #   $@ -> target file name
+$(BUILD)/%.o: %.c | $(BUILD)
+	gcc $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(BUILD)/*
