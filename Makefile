@@ -1,7 +1,8 @@
 CFLAGS = -Wall -Wextra -Iinclude
 BUILD = build
-SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:%.c=$(BUILD)/%.o)
+SRC = src
+SOURCES = $(wildcard $(SRC)/*.c)
+OBJECTS = $(SOURCES:$(SRC)/%.c=$(BUILD)/%.o)
 
 all: $(BUILD)/vis
 
@@ -14,7 +15,7 @@ $(BUILD)/vis: $(OBJECTS) | $(BUILD)
 
 # 	$< -> input file name
 #   $@ -> target file name
-$(BUILD)/%.o: %.c | $(BUILD)
+$(BUILD)/%.o: $(SRC)/%.c | $(BUILD)
 	gcc $(CFLAGS) -c $< -o $@
 
 clean:
