@@ -21,6 +21,11 @@ extern Uint32               wav_position;
 extern struct dirent        *de; 
 extern DIR                  *dr;
 
+extern char files[MAX_FILES][MAX_FILENAME];
+extern int file_count;
+    
+extern int current_track;
+
 //FUCTIONS
 int audioInit();
 

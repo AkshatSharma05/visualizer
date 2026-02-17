@@ -76,7 +76,7 @@ int audioInit(){
 //audio loop
 void updateAudio(int frq_cmp[]){
     if (wav_position < wav_length) {
-        if (SDL_GetQueuedAudioSize(deviceId) < CHUNK_SIZE * 4) {
+        if (SDL_GetQueuedAudioSize(deviceId) < CHUNK_SIZE * 2) {
             
             Uint32 remaining = wav_length - wav_position;
             Uint32 chunk = remaining > CHUNK_SIZE ? CHUNK_SIZE : remaining;

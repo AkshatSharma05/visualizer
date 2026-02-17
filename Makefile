@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Iinclude
+CFLAGS = -Wall -Wextra -Iinclude -lm `sdl2-config --cflags --libs` -lSDL2_ttf
 BUILD = build
 SRC = src
 SOURCES = $(wildcard $(SRC)/*.c)
@@ -10,7 +10,7 @@ $(BUILD):
 	mkdir -p $(BUILD)
 
 $(BUILD)/vis: $(OBJECTS) | $(BUILD)
-	gcc $(CFLAGS) $(OBJECTS) -o $(BUILD)/vis -lm `sdl2-config --cflags --libs`
+	gcc  $(OBJECTS) -o $(BUILD)/vis $(CFLAGS)
 	chmod +x $(BUILD)/vis
 
 # 	$< -> input file name
