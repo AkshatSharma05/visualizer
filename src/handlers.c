@@ -43,10 +43,18 @@ void drawPlayer(){
 		}
 	}
 
-	for(int i = 1; i <= 20; i++){
-		
-		SDL_RenderDrawLine(renderer, (WINDOW_WIDTH / 20) * i, WINDOW_HEIGHT/2 + 10 * frq_smooth[i-1], (WINDOW_WIDTH / 20) * i, WINDOW_HEIGHT/2 - 10 * frq_smooth[i-1]);
-	}
+
+    int bar_count = 20;
+    int bar_width = WINDOW_WIDTH / bar_count;
+    int gap = 10;
+
+    for (int i = 0; i < bar_count; i++) {
+        int x = i * bar_width + gap / 2;
+        int val = frq_smooth[i];
+        int bar_h = val * 10;
+        SDL_Rect r = { x, WINDOW_HEIGHT/2 - bar_h, bar_width - gap, bar_h * 2 }; //x,y,w,h
+        SDL_RenderFillRect(renderer, &r);
+    }
 	
 	SDL_RenderPresent( renderer );
 }
