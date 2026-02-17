@@ -8,10 +8,16 @@
 #define WINDOW_HEIGHT 	480.0
 #define FPS			  	30.0
 
-extern SDL_Window* window;
-extern SDL_Renderer* renderer;
-extern SDL_Event ev;
+extern SDL_Window*          window;
+extern SDL_Renderer*        renderer;
+extern SDL_Event            ev;
+
+extern int frq_cmp[20];
+extern int frq_smooth[20];
+extern float smoothing;
+
 
 void initSDL2();
 void updateAudio(int frq_cmp[]);
+void drawPlayer();
 void deInitSDL2();
