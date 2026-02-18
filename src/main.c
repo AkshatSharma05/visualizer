@@ -12,8 +12,19 @@ int main ( ) {
 		while( SDL_PollEvent(&ev) != 0 ){
 			switch( ev.type ){
 				case SDL_QUIT:
-				running = false;
-				break;
+					running = false;
+					break;
+
+				case SDL_KEYDOWN:
+					if(ev.key.keysym.sym == SDLK_LEFTBRACKET){
+						current_track = abs(current_track - 1) % file_count;
+						loadTrack(current_track);
+						// printf("%d\n", current_track);
+					}
+					if(ev.key.keysym.sym == SDLK_RIGHTBRACKET){
+						current_track = abs(current_track + 1) % file_count;
+						loadTrack(current_track);
+					}
 			}
 		}
 

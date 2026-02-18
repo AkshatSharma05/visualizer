@@ -15,7 +15,7 @@ DIR *dr = NULL;
 
 char files[MAX_FILES][MAX_FILENAME] = {};
 int file_count = 0;
-    
+
 int current_track = 0;
 
 
@@ -40,6 +40,11 @@ int loadTrack(int current_track){
         printf("Failed to load WAV\n");
         return 1;
     } 
+
+    // printf("Format: %x\n", wav_spec.format);
+    // printf("Channels: %d\n", wav_spec.channels);
+    // printf("Sample rate: %d\n", wav_spec.freq);
+
     
     deviceId = SDL_OpenAudioDevice(NULL, 0, &wav_spec, NULL, 0);
     SDL_PauseAudioDevice(deviceId, 0);
@@ -60,7 +65,7 @@ int audioInit(){
         if (strcmp(de->d_name, ".") != 0 &&
             strcmp(de->d_name, "..") != 0 && (file_count < MAX_FILES))
         {
-            printf("%s\n", de->d_name);
+            // printf("%s\n", de->d_name);
 
             strncpy(files[file_count], de->d_name, MAX_FILENAME - 1);
             files[file_count][MAX_FILENAME - 1] = '\0'; 
@@ -85,13 +90,20 @@ void updateAudio(int frq_cmp[]){
             
             int16_t *samples = (int16_t*)(wav_buffer + wav_position);
             int sample_count = chunk / sizeof(int16_t);
+            int frame_count = sample_count/wav_spec.channels;
             
             for (int i = 0; i < 20; i++){
                 int sum = 0;
-                for (int j = i*sample_count/20; j < i * (sample_count/20) + (sample_count/20); j++){
-                    sum += abs(samples[j]);
+                for (int j = i*frame_count/20; j < (i+1) * (frame_count/20); j++){
+                    if(wav_spec.channels == 1) sum += abs(samples[j]);
+                    else {
+                        int left = abs(samples[j*2]);
+                        int right = abs(samples[j*2+1]);
+                        sum += abs((left+right) / 2);
+
+                    }
                 }
-                frq_cmp[i] = (sum/sample_count/20) * 0.5;
+                frq_cmp[i] = (sum/frame_count/20) * 0.4;
             }
             
             wav_position += chunk;

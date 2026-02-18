@@ -62,8 +62,7 @@ void drawPlayer(){
 
 	SDL_RenderClear(renderer);
 
-	
-	SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
+	SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 	
 	for (int i = 0; i < 20; i++) {
 		if (frq_cmp[i] > frq_smooth[i])
@@ -87,7 +86,6 @@ void drawPlayer(){
         SDL_Rect r = { x, WINDOW_HEIGHT/2 - bar_h, bar_width - gap, bar_h * 2 }; //x,y,w,h
         SDL_RenderFillRect(renderer, &r);
     }
-	SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 
 	SDL_RenderDrawLine(renderer, 0, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT/2);
 
@@ -99,7 +97,7 @@ void drawPlayer(){
 
 	text_x += 5;
 
-	SDL_Rect textRect = {(int)text_x % (int)(WINDOW_WIDTH+textSurface->w) - textSurface->w, WINDOW_HEIGHT*5/6, textSurface->w, textSurface->h}; // rectangle where the text is drawn 
+	SDL_Rect textRect = {(int)text_x % (int)(WINDOW_WIDTH+textSurface->w) - textSurface->w, WINDOW_HEIGHT - textSurface->h*2, textSurface->w, textSurface->h}; // rectangle where the text is drawn 
 	SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 	
 	SDL_RenderPresent( renderer );
